@@ -1,4 +1,4 @@
-package com.codely.shared.event
+package com.codely.shared.event.bus
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

@@ -1,6 +1,6 @@
 package com.codely.shared.aggregate
 
-import com.codely.shared.event.DomainEvent
+import com.codely.shared.event.bus.DomainEvent
 
 abstract class Aggregate(
     private var domainEvents: MutableList<DomainEvent> = ArrayList()

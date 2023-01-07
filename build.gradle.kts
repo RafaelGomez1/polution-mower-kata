@@ -50,24 +50,36 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
+    // Axon
+    implementation("org.axonframework:axon-messaging:4.6.3")
+
     // Polyline
     implementation("com.google.maps:google-maps-services:2.1.2")
+    implementation("org.gavaghan:geodesy:1.1.3")
 
     // Functional Programming
     implementation("io.arrow-kt:arrow-core:1.1.4-rc.3")
     implementation("io.arrow-kt:arrow-optics:1.1.4-rc.3")
-    implementation("io.arrow-kt:arrow-fx-coroutines:1.0.1")
-    implementation("io.arrow-kt:arrow-fx-stm:1.0.1")
+    implementation("io.arrow-kt:arrow-fx-coroutines:1.1.2")
+    implementation("io.arrow-kt:arrow-fx-stm:1.1.2")
 
     // Testing
     testImplementation("org.jetbrains.kotlin:kotlin-test")
+
+    testImplementation("io.kotest.extensions:kotest-assertions-arrow:1.3.0") {
+        because("provides good testing for arrow")
+    }
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-test")
+
+    // Coroutines
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
+        freeCompilerArgs = listOf("-Xjsr305=strict", "-Xcontext-receivers")
         jvmTarget = "11"
     }
 }

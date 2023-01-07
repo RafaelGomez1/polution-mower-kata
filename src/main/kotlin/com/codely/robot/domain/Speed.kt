@@ -5,7 +5,7 @@ import arrow.core.left
 import arrow.core.right
 
 @JvmInline
-value class Speed private constructor(val value: Double) {
+value class Speed constructor(val value: Double) {
 
     companion object {
         private const val MINIMUM_ALLOWED_SPEED = 1.0
