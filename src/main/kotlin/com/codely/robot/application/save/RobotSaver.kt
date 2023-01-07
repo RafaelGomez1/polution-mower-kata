@@ -9,4 +9,3 @@ suspend fun <T> Robot.saveOrElse(onError: (cause: Throwable) -> T): Either<T, Ro
     save(this)
         .map { this }
         .mapLeft { error -> onError(error) }
-

@@ -18,4 +18,4 @@ suspend fun routeRobot(id: RobotId, route: Route): Either<RouteRobotError, Robot
         onResourceNotFound = { RouteRobotError.RobotNotFound }
     )
         .map { robot -> robot.route(route) }
-        .flatMap { robot -> robot.saveOrElse( onError = { RouteRobotError.Unknown(it) }) }
+        .flatMap { robot -> robot.saveOrElse(onError = { RouteRobotError.Unknown(it) }) }

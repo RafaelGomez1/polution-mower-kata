@@ -3,7 +3,6 @@ package com.codely.robot.application.stop
 import com.codely.robot.application.StopRobotCommand
 import com.codely.robot.domain.Robot
 import com.codely.robot.domain.Running
-import com.codely.robot.domain.StartRobotError
 import com.codely.robot.domain.StopRobotError
 import com.codely.robot.secondaryadapter.FakeRobotRepository
 import com.codely.shared.event.robot.RobotStoppedEvent
@@ -11,13 +10,12 @@ import com.codely.shared.robot.RobotMother
 import com.codely.shared.robot.publisher.FakeDomainEventPublisher
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeRight
-
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 @ExperimentalCoroutinesApi
 class RobotStopperTest {

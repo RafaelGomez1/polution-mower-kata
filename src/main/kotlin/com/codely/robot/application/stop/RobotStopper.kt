@@ -15,7 +15,7 @@ suspend fun stopRobot(id: RobotId): Either<StopRobotError, Robot> =
     findRobot(
         id = id,
         onUnexpectedError = { StopRobotError.Unknown(it) },
-        onResourceNotFound = { StopRobotError.RobotNotFound}
+        onResourceNotFound = { StopRobotError.RobotNotFound }
     ).flatMap { robot -> robot.stop() }
-        .flatMap { robot -> robot.saveOrElse( onError = { StopRobotError.Unknown(it) }) }
+        .flatMap { robot -> robot.saveOrElse(onError = { StopRobotError.Unknown(it) }) }
         .map { robot -> publish(robot.pullDomainEvents()).let { robot } }

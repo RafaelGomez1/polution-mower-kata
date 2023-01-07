@@ -16,6 +16,5 @@ class MoveRobotOnRobotStartedSubscriber(
 
     @EventListener
     fun on(event: RobotStartedEvent) {
-
     }
 }

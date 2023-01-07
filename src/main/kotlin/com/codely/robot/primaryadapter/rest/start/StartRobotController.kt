@@ -1,4 +1,4 @@
-package com.codely.robot.primaryadapter.start
+package com.codely.robot.primaryadapter.rest.start
 
 import com.codely.robot.application.StartRobotCommand
 import com.codely.robot.application.start.handle
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class StartRobotPostController(
+class StartRobotController(
     private val repository: RobotRepository,
     private val publisher: DomainEventPublisher
 ) {
@@ -33,4 +33,3 @@ class StartRobotPostController(
             }
         }
 }
-

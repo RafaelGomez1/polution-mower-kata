@@ -15,5 +15,5 @@ class InMemoryRobotRepository : RobotRepository {
 
     override suspend fun save(robot: Robot): Either<Throwable, Unit> =
         Either.catch { robots.put(robot.id, robot) }
-            .map {  }
+            .map { }
 }

@@ -1,10 +1,5 @@
 package com.codely.robot.domain
 
-sealed class FindRobotError {
-    object RobotNotFound : FindRobotError()
-    class Unknown(val cause: Throwable) : FindRobotError()
-}
-
 sealed class StartRobotError {
     object RobotNotFound : StartRobotError()
     object RobotAlreadyStarted : StartRobotError()

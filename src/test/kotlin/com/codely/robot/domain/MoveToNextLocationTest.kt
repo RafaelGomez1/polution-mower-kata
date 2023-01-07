@@ -2,8 +2,8 @@ package com.codely.robot.domain
 
 import com.codely.shared.robot.LocationMother
 import com.codely.shared.robot.RobotMother
-import kotlin.test.assertEquals
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 class MoveToNextLocationTest {
 

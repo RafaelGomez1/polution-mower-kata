@@ -91,11 +91,7 @@ tasks.withType<Test> {
 spotless {
     kotlin {
         ktlint()
-            .userData(
-                mapOf(
-                    "insert_final_newline" to "true"
-                )
-            )
+
     }
     kotlinGradle {
         ktlint()

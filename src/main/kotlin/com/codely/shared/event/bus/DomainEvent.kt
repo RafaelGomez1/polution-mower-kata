@@ -2,7 +2,6 @@ package com.codely.shared.event.bus
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Formatter
 import java.util.UUID
 
 abstract class DomainEvent(

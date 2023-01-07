@@ -2,7 +2,6 @@ package com.codely.robot.application.move
 
 import arrow.core.Either
 import arrow.core.continuations.either
-import arrow.optics.copy
 import com.codely.robot.application.find.findRobot
 import com.codely.robot.application.save.saveOrElse
 import com.codely.robot.domain.DistanceCalculator
@@ -29,5 +28,5 @@ suspend fun moveRobot(id: RobotId): Either<MoveRobotError, Robot> =
 
         robot.saveOrElse { MoveRobotError.Unknown(it) }.bind()
 
-    // Delete Report Configuration
+        // Delete Report Configuration
     }

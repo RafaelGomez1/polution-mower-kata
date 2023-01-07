@@ -20,10 +20,13 @@ class FakeRobotRepository : RobotRepository {
     }
 
     override suspend fun findBy(id: RobotId): Either<Throwable, Robot> =
-        if (shouldFailFinding) NoSuchElementException().left()
-        else robots.getValue(id).right()
+        if (shouldFailFinding) {
+            NoSuchElementException().left()
+        } else {
+            robots.getValue(id).right()
+        }
 
     override suspend fun save(robot: Robot): Either<Throwable, Unit> =
         Either.catch { robots.put(robot.id, robot) }
-            .map {  }
+            .map { }
 }

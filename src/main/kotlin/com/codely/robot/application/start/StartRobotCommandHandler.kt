@@ -10,6 +10,4 @@ import com.codely.shared.event.bus.DomainEventPublisher
 
 context(RobotRepository, DomainEventPublisher)
 suspend fun handle(command: StartRobotCommand): Either<StartRobotError, Robot> =
-        startRobot(id = RobotId(command.id))
-
-
+    startRobot(id = RobotId(command.id))
