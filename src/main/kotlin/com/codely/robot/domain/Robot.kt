@@ -5,20 +5,20 @@ import arrow.core.left
 import arrow.core.right
 import arrow.optics.optics
 import com.codely.shared.aggregate.Aggregate
-import com.codely.shared.domain.robot.Location
-import com.codely.shared.domain.robot.RobotId
 import com.codely.shared.event.robot.RobotMovedHundredMetersEvent
 import com.codely.shared.event.robot.RobotStartedEvent
 import com.codely.shared.event.robot.RobotStoppedEvent
+import com.codely.shared.robot.domain.Location
+import com.codely.shared.robot.domain.RobotId
 import com.google.maps.model.LatLng
 
 @optics
 data class Robot(
     val id: RobotId,
-    val speed: Speed,
-    val distance: DistanceTravelled,
-    val location: Location,
-    val running: Running,
+    val speed: Speed = Speed(2.0),
+    val distance: DistanceTravelled = DistanceTravelled(0.0),
+    val location: Location?,
+    val running: Running = Running(false),
     val route: Route? = null
 ) : Aggregate() {
 
@@ -50,8 +50,8 @@ data class Robot(
 
     companion object {
         private const val NOTIFICATION_DISTANCE = 100.00
-        fun create(id: RobotId, speed: Speed, location: Location, running: Running, route: Route?): Robot =
-            Robot(id, speed, DistanceTravelled(0.0), location, running, route)
+        fun create(id: RobotId, speed: Speed, location: Location?, route: Route?): Robot =
+            Robot(id = id, speed = speed, location = location, route = route)
                 .also { it.record(RobotStartedEvent(id.value)) }
     }
 }

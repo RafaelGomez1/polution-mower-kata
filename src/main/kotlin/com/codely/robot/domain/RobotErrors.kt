@@ -14,7 +14,13 @@ sealed class StopRobotError {
 
 sealed class MoveRobotError {
     object RobotNotFound : MoveRobotError()
+    object RouteNotAssignedToRobot : MoveRobotError()
     class Unknown(val cause: Throwable) : MoveRobotError()
+}
+
+sealed class CreateRobotError {
+    object RobotAlreadyExists : CreateRobotError()
+    class Unknown(val cause: Throwable) : CreateRobotError()
 }
 
 sealed class RouteRobotError {

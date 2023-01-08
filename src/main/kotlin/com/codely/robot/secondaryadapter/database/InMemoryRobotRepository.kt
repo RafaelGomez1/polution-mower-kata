@@ -3,7 +3,7 @@ package com.codely.robot.secondaryadapter.database
 import arrow.core.Either
 import com.codely.robot.domain.Robot
 import com.codely.robot.domain.RobotRepository
-import com.codely.shared.domain.robot.RobotId
+import com.codely.shared.robot.domain.RobotId
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -16,4 +16,7 @@ class InMemoryRobotRepository : RobotRepository {
     override suspend fun save(robot: Robot): Either<Throwable, Unit> =
         Either.catch { robots.put(robot.id, robot) }
             .map { }
+
+    override suspend fun existBy(id: RobotId): Either<Throwable, Boolean> =
+        Either.catch { robots.containsKey(id) }
 }

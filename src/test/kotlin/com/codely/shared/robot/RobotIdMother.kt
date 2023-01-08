@@ -1,6 +1,6 @@
 package com.codely.shared.robot
 
-import com.codely.shared.domain.robot.RobotId
+import com.codely.shared.robot.domain.RobotId
 import java.util.*
 
 object RobotIdMother {

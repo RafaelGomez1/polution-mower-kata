@@ -7,8 +7,8 @@ import com.codely.robot.application.save.saveOrElse
 import com.codely.robot.domain.Robot
 import com.codely.robot.domain.RobotRepository
 import com.codely.robot.domain.StopRobotError
-import com.codely.shared.domain.robot.RobotId
 import com.codely.shared.event.bus.DomainEventPublisher
+import com.codely.shared.robot.domain.RobotId
 
 context(RobotRepository, DomainEventPublisher)
 suspend fun stopRobot(id: RobotId): Either<StopRobotError, Robot> =

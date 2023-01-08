@@ -1,4 +1,4 @@
-package com.codely.shared.robot.publisher
+package com.codely.shared.publisher
 
 import com.codely.shared.event.bus.DomainEvent
 import com.codely.shared.event.bus.DomainEventPublisher

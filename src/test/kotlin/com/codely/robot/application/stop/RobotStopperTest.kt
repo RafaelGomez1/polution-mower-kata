@@ -6,8 +6,8 @@ import com.codely.robot.domain.Running
 import com.codely.robot.domain.StopRobotError
 import com.codely.robot.secondaryadapter.FakeRobotRepository
 import com.codely.shared.event.robot.RobotStoppedEvent
+import com.codely.shared.publisher.FakeDomainEventPublisher
 import com.codely.shared.robot.RobotMother
-import com.codely.shared.robot.publisher.FakeDomainEventPublisher
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeRight
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -75,7 +75,7 @@ class RobotStopperTest {
 
     private suspend fun `robot does exist`(robot: Robot) = repository.save(robot)
 
-    private suspend fun `robot does not exist`() = repository.shouldFailOnFindingBy(true)
+    private fun `robot does not exist`() = repository.shouldFailOnFindingBy(true)
 
     private val startedRobot = RobotMother.invoke(running = Running(true))
     private val stoppedRobot = startedRobot.copy(running = Running(false))

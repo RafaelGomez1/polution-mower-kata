@@ -1,12 +1,12 @@
-package com.codely.robot.domain
+package com.codely.shared.robot.domain
 
 import com.google.maps.model.EncodedPolyline
 import com.google.maps.model.LatLng
 
 @JvmInline
-value class Route(val points: List<LatLng>) {
+value class Location(val value: LatLng) {
     companion object {
         fun fromPolyline(polyline: String) =
-            Route(EncodedPolyline(polyline).decodePath())
+            Location(EncodedPolyline(polyline).decodePath()[0])
     }
 }

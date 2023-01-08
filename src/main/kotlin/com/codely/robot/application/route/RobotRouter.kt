@@ -8,7 +8,7 @@ import com.codely.robot.domain.Robot
 import com.codely.robot.domain.RobotRepository
 import com.codely.robot.domain.Route
 import com.codely.robot.domain.RouteRobotError
-import com.codely.shared.domain.robot.RobotId
+import com.codely.shared.robot.domain.RobotId
 
 context(RobotRepository)
 suspend fun routeRobot(id: RobotId, route: Route): Either<RouteRobotError, Robot> =

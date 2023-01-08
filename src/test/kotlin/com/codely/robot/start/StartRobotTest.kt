@@ -1,27 +1,29 @@
-package com.codely.robot.application.start
+package com.codely.robot.start
 
-import com.codely.robot.application.StartRobotCommand
 import com.codely.robot.domain.Robot
 import com.codely.robot.domain.Running
-import com.codely.robot.domain.StartRobotError
+import com.codely.robot.primaryadapter.rest.start.StartRobotController
 import com.codely.robot.secondaryadapter.FakeRobotRepository
 import com.codely.shared.event.robot.RobotStartedEvent
 import com.codely.shared.publisher.FakeDomainEventPublisher
 import com.codely.shared.robot.RobotMother
-import io.kotest.assertions.arrow.core.shouldBeLeft
-import io.kotest.assertions.arrow.core.shouldBeRight
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 @ExperimentalCoroutinesApi
-class RobotStarterTest {
+class StartRobotTest {
 
     private val repository = FakeRobotRepository()
     private val publisher = FakeDomainEventPublisher()
+
+    private val controller: StartRobotController = StartRobotController(repository, publisher)
 
     @AfterEach
     internal fun tearDown() {
@@ -30,48 +32,42 @@ class RobotStarterTest {
     }
 
     @Test
-    fun `should start robot`() = runTest {
+    fun `should start a robot and return 200`() = runTest {
         // Given
         `robot does exist`(stoppedRobot)
 
         // When
-        with(publisher) {
-            with(repository) {
-                handle(startRobotCommand).shouldBeRight(startedRobot)
-            }
-        }
+        val result = controller.start(stoppedRobot.id.value)
 
         // Then
+        assertEquals(ResponseEntity.status(200).build(), result)
         assertTrue { publisher.eventWasPublished(expectedEvent) }
     }
 
     @Test
-    fun `should return error if robot not found`() = runTest {
+    fun `should return NOT_FOUND if the robot does not exist`() = runTest {
         // Given
         `robot does not exist`()
 
         // When
-        with(publisher) {
-            with(repository) {
-                handle(startRobotCommand).shouldBeLeft(StartRobotError.RobotNotFound)
-            }
-        }
+        val result = controller.start(stoppedRobot.id.value)
+
+        // Then
+        assertEquals(ResponseEntity.status(HttpStatus.NOT_FOUND).build(), result)
+        assertFalse { publisher.eventWasPublished(expectedEvent) }
     }
 
     @Test
-    fun `should return error if robot already started`() = runTest {
+    fun `should return CONFLICT if the robot was already started`() = runTest {
         // Given
         `robot does exist`(startedRobot)
 
         // When
-        with(publisher) {
-            with(repository) {
-                handle(startRobotCommand).shouldBeLeft(StartRobotError.RobotAlreadyStarted)
-            }
-        }
+        val result = controller.start(startedRobot.id.value)
 
         // Then
-        assertFalse { publisher.eventsWerePublished() }
+        assertEquals(ResponseEntity.status(HttpStatus.CONFLICT).build(), result)
+        assertFalse { publisher.eventWasPublished(expectedEvent) }
     }
 
     private suspend fun `robot does exist`(robot: Robot) = repository.save(robot)
@@ -79,6 +75,5 @@ class RobotStarterTest {
 
     private val stoppedRobot = RobotMother.invoke(running = Running(false))
     private val startedRobot = stoppedRobot.copy(running = Running(true))
-    private val startRobotCommand = StartRobotCommand(stoppedRobot.id.value)
     private val expectedEvent = RobotStartedEvent(stoppedRobot.id.value)
 }

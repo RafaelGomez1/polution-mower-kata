@@ -1,0 +1,7 @@
+pollution:
+  robot:
+    speed: 2 # between 1 and 3
+    delay-timeUnit: 1 #unit of time we want to delay each iteration (1000 for ms in "prod" or 1 for s in "dev")
+  report:
+    group-name: "pollution-mower"
+    report-rate: 900000 #Interval between reports (in ms) expected time is 900000

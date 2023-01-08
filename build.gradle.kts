@@ -50,6 +50,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
+    // Logging
+    implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
+
     // Axon
     implementation("org.axonframework:axon-messaging:4.6.3")
 
