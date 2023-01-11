@@ -8,6 +8,7 @@ import com.codely.robot.domain.Robot
 import com.codely.robot.domain.RobotRepository
 import com.codely.robot.domain.StopRobotError
 import com.codely.shared.event.bus.DomainEventPublisher
+import com.codely.shared.event.bus.publishEventsOrElse
 import com.codely.shared.robot.domain.RobotId
 
 context(RobotRepository, DomainEventPublisher)
@@ -18,4 +19,4 @@ suspend fun stopRobot(id: RobotId): Either<StopRobotError, Robot> =
         onResourceNotFound = { StopRobotError.RobotNotFound }
     ).flatMap { robot -> robot.stop() }
         .flatMap { robot -> robot.saveOrElse(onError = { StopRobotError.Unknown(it) }) }
-        .map { robot -> publish(robot.pullDomainEvents()).let { robot } }
+        .flatMap { robot -> robot.publishEventsOrElse { StopRobotError.Unknown(it) } }

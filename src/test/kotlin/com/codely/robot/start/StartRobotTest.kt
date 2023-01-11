@@ -2,14 +2,14 @@ package com.codely.robot.start
 
 import com.codely.robot.domain.Robot
 import com.codely.robot.domain.Running
+import com.codely.robot.fakes.FakeRobotRepository
+import com.codely.robot.mothers.RobotMother
 import com.codely.robot.primaryadapter.rest.start.StartRobotController
-import com.codely.robot.secondaryadapter.FakeRobotRepository
 import com.codely.shared.event.robot.RobotStartedEvent
 import com.codely.shared.publisher.FakeDomainEventPublisher
-import com.codely.shared.robot.RobotMother
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -25,7 +25,7 @@ class StartRobotTest {
 
     private val controller: StartRobotController = StartRobotController(repository, publisher)
 
-    @AfterEach
+    @BeforeEach
     internal fun tearDown() {
         repository.resetFake()
         publisher.resetFake()

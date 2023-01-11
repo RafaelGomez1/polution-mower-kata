@@ -2,11 +2,11 @@ package com.codely.robot.create
 
 import com.codely.robot.domain.Robot
 import com.codely.robot.domain.Running
+import com.codely.robot.fakes.FakeRobotRepository
+import com.codely.robot.mothers.CreateRobotDTOMother
+import com.codely.robot.mothers.RobotMother
 import com.codely.robot.primaryadapter.rest.create.CreateRobotController
-import com.codely.robot.secondaryadapter.FakeRobotRepository
-import com.codely.shared.configuration.RobotConfiguration
-import com.codely.shared.robot.CreateRobotDTOMother
-import com.codely.shared.robot.RobotMother
+import com.codely.shared.configuration.robot.RobotConfiguration
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach

@@ -1,6 +1,6 @@
 package com.codely.shared
 
-import com.codely.shared.configuration.RobotConfiguration
+import com.codely.shared.configuration.robot.RobotConfiguration
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication

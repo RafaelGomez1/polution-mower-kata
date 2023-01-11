@@ -43,7 +43,7 @@ data class Robot(
     fun moveToNextLocation(newLocation: LatLng, travelledDistance: Double): Robot =
         if (distance.value + travelledDistance >= NOTIFICATION_DISTANCE) {
             copy(location = Location(newLocation), distance = DistanceTravelled(distance.value + travelledDistance - NOTIFICATION_DISTANCE))
-                .also { it.record(RobotMovedHundredMetersEvent(id.value)) }
+                .also { it.record(RobotMovedHundredMetersEvent(id.value, location!!.value)) }
         } else {
             copy(location = Location(newLocation), distance = DistanceTravelled(distance.value + travelledDistance))
         }

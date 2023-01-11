@@ -18,7 +18,7 @@ class StartRobotController(
     private val publisher: DomainEventPublisher
 ) {
 
-    @PostMapping(value = ["/robots/start/{robotId}"])
+    @PostMapping("/robots/start/{robotId}")
     suspend fun start(@PathVariable robotId: String): ResponseEntity<Void> =
         with(repository) {
             with(publisher) {

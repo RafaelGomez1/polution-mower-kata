@@ -8,6 +8,7 @@ import com.codely.robot.domain.Robot
 import com.codely.robot.domain.RobotRepository
 import com.codely.robot.domain.StartRobotError
 import com.codely.shared.event.bus.DomainEventPublisher
+import com.codely.shared.event.bus.publishEventsOrElse
 import com.codely.shared.robot.domain.RobotId
 
 context(RobotRepository, DomainEventPublisher)
@@ -16,6 +17,7 @@ suspend fun startRobot(id: RobotId): Either<StartRobotError, Robot> =
         id = id,
         onUnexpectedError = { StartRobotError.Unknown(it) },
         onResourceNotFound = { StartRobotError.RobotNotFound }
-    ).flatMap { robot -> robot.start() }
+    )
+        .flatMap { robot -> robot.start() }
         .flatMap { robot -> robot.saveOrElse { StartRobotError.Unknown(it) } }
-        .map { robot -> publish(robot.pullDomainEvents()).let { robot } }
+        .flatMap { robot -> robot.publishEventsOrElse { StartRobotError.Unknown(it) } }

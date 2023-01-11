@@ -4,7 +4,7 @@ import com.codely.robot.application.CreateRobotCommand
 import com.codely.robot.application.create.handle
 import com.codely.robot.domain.CreateRobotError
 import com.codely.robot.domain.RobotRepository
-import com.codely.shared.configuration.RobotConfiguration
+import com.codely.shared.configuration.robot.RobotConfiguration
 import com.codely.shared.response.toServerResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

@@ -1,6 +1,6 @@
 package com.codely.robot.stop
 
-import com.codely.robot.secondaryadapter.FakeRobotRepository
+import com.codely.robot.fakes.FakeRobotRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi

@@ -29,5 +29,5 @@ class MoveRobotOnRobotStartedSubscriber(
                     }
                 }
             }
-        }.mapLeft { error -> error.also { logger.error { "Error encountered wile moving robot: $error" } } }
+        }.mapLeft { error -> error.also { logger.error { "Error encountered while moving robot: $error" } } }
 }

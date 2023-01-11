@@ -1,4 +1,4 @@
-package com.codely.shared.configuration
+package com.codely.shared.configuration.robot
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 

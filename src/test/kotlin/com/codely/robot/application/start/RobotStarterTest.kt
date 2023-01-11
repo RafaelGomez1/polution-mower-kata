@@ -4,10 +4,10 @@ import com.codely.robot.application.StartRobotCommand
 import com.codely.robot.domain.Robot
 import com.codely.robot.domain.Running
 import com.codely.robot.domain.StartRobotError
-import com.codely.robot.secondaryadapter.FakeRobotRepository
+import com.codely.robot.fakes.FakeRobotRepository
+import com.codely.robot.mothers.RobotMother
 import com.codely.shared.event.robot.RobotStartedEvent
 import com.codely.shared.publisher.FakeDomainEventPublisher
-import com.codely.shared.robot.RobotMother
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeRight
 import kotlinx.coroutines.ExperimentalCoroutinesApi

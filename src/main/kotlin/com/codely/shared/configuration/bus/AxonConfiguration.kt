@@ -1,4 +1,4 @@
-package com.codely.shared.event.bus
+package com.codely.shared.configuration.bus
 
 import org.axonframework.eventhandling.EventBus
 import org.axonframework.eventhandling.SimpleEventBus

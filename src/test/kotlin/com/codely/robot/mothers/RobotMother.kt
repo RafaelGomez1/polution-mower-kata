@@ -1,10 +1,12 @@
-package com.codely.shared.robot
+package com.codely.robot.mothers
 
 import com.codely.robot.domain.DistanceTravelled
 import com.codely.robot.domain.Robot
 import com.codely.robot.domain.Route
 import com.codely.robot.domain.Running
 import com.codely.robot.domain.Speed
+import com.codely.shared.robot.LocationMother
+import com.codely.shared.robot.RobotIdMother
 import com.codely.shared.robot.domain.Location
 import com.codely.shared.robot.domain.RobotId
 

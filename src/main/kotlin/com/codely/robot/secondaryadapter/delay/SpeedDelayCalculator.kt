@@ -1,7 +1,7 @@
 package com.codely.robot.secondaryadapter.delay
 
 import com.codely.robot.domain.DelayCalculator
-import com.codely.shared.configuration.RobotConfiguration
+import com.codely.shared.configuration.robot.RobotConfiguration
 import org.springframework.stereotype.Component
 
 @Component

@@ -1,6 +1,7 @@
-package com.codely.shared.robot
+package com.codely.robot.mothers
 
 import com.codely.robot.domain.Route
+import com.codely.shared.robot.LocationMother
 import com.google.maps.model.EncodedPolyline
 import com.google.maps.model.LatLng
 

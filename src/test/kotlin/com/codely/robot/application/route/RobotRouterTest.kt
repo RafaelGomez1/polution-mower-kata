@@ -1,9 +1,9 @@
 package com.codely.robot.application.route
 
 import com.codely.robot.domain.RouteRobotError
-import com.codely.robot.secondaryadapter.FakeRobotRepository
-import com.codely.shared.robot.RobotMother
-import com.codely.shared.robot.RouteMother
+import com.codely.robot.fakes.FakeRobotRepository
+import com.codely.robot.mothers.RobotMother
+import com.codely.robot.mothers.RouteMother
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeRight
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -45,7 +45,7 @@ class RobotRouterTest {
 
     private suspend fun `robot does exist`() = repository.save(robot)
 
-    private suspend fun `robot does not exist`() = repository.shouldFailOnFindingBy(true)
+    private fun `robot does not exist`() = repository.shouldFailOnFindingBy(true)
 
     private val robot = RobotMother.invoke()
     private val newRoute = RouteMother.invoke()

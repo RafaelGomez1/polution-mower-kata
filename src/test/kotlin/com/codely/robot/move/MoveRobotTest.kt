@@ -5,13 +5,13 @@ import com.codely.robot.domain.DistanceCalculator
 import com.codely.robot.domain.MoveRobotError
 import com.codely.robot.domain.Robot
 import com.codely.robot.domain.Running
+import com.codely.robot.fakes.FakeRobotRepository
+import com.codely.robot.mothers.RobotMother
 import com.codely.robot.primaryadapter.event.move.MoveRobotOnRobotStartedSubscriber
-import com.codely.robot.secondaryadapter.FakeRobotRepository
 import com.codely.robot.secondaryadapter.distance.VincentyDistanceCalculator
 import com.codely.shared.event.robot.RobotMovedHundredMetersEvent
 import com.codely.shared.event.robot.RobotStartedEvent
 import com.codely.shared.publisher.FakeDomainEventPublisher
-import com.codely.shared.robot.RobotMother
 import com.codely.shared.robot.domain.Location
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -88,5 +88,5 @@ class MoveRobotTest {
 
     private val expectedLocation = startedRobot.route?.points!!.last()
     private val expectedRobot = startedRobot.copy(location = Location(expectedLocation))
-    private val expectedEvent = RobotMovedHundredMetersEvent(startedRobot.id.value)
+    private val expectedEvent = RobotMovedHundredMetersEvent(startedRobot.id.value, startedRobot.location!!.value)
 }

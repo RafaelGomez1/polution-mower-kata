@@ -1,4 +1,4 @@
-package com.codely.shared.robot
+package com.codely.robot.mothers
 
 import com.codely.robot.domain.Speed
 import kotlin.random.Random

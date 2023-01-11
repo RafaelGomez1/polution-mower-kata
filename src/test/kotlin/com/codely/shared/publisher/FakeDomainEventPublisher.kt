@@ -12,8 +12,8 @@ class FakeDomainEventPublisher : DomainEventPublisher {
     }
 
     override fun publish(events: List<DomainEvent>) {
-        eventsWerePublished = true
         publishedEvents.addAll(events)
+        eventsWerePublished = true
     }
 
     fun eventsWerePublished() = eventsWerePublished
