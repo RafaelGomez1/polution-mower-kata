@@ -6,6 +6,7 @@ import com.codely.robot.domain.CreateRobotError
 import com.codely.robot.domain.RobotRepository
 import com.codely.shared.configuration.robot.RobotConfiguration
 import com.codely.shared.response.toServerResponse
+import kotlinx.coroutines.runBlocking
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
@@ -20,14 +21,15 @@ class CreateRobotController(
 ) {
 
     @PostMapping(value = ["/robots/create/{robotId}"])
-    suspend fun create(@PathVariable robotId: String, @RequestBody createRobotDto: CreateRobotDTO): ResponseEntity<Void> =
+    fun create(@PathVariable robotId: String, @RequestBody createRobotDto: CreateRobotDTO): ResponseEntity<*> = runBlocking {
         with(repository) {
             handle(CreateRobotCommand(robotId, configuration.speed, createRobotDto.route))
                 .toServerResponse { error ->
                     when (error) {
-                        is CreateRobotError.RobotAlreadyExists -> ResponseEntity.status(HttpStatus.CONFLICT).build()
-                        is CreateRobotError.Unknown -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
+                        is CreateRobotError.RobotAlreadyExists -> ResponseEntity.status(HttpStatus.CONFLICT).body("cause")
+                        is CreateRobotError.Unknown -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("cause: ${error.cause}")
                     }
                 }
         }
+    }
 }

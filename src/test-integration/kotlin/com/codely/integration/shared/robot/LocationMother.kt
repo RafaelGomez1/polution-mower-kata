@@ -1,22 +1,16 @@
-package com.codely.robot.mothers
+package com.codely.shared.robot
 
-import com.codely.robot.domain.Route
-import com.codely.shared.robot.LocationMother
+import com.codely.shared.robot.domain.Location
 import com.google.maps.model.EncodedPolyline
 import com.google.maps.model.LatLng
+import kotlin.random.Random
 
-object RouteMother {
+object LocationMother {
 
-    fun invoke(): Route {
-        return Route(listOf(LocationMother.invoke().value))
-    }
+    fun invoke(value: LatLng = LatLng(Random.nextDouble(), Random.nextDouble())): Location = Location(value)
 
-    fun fromPolyline(): Route = Route(decodePolyline(POLYLINE))
-
-    private fun decodePolyline(polyline: String): List<LatLng> {
-        val encodedPolyline = EncodedPolyline(polyline)
-        return encodedPolyline.decodePath()
-    }
+    fun fromPolyline() = Location(EncodedPolyline(POLYLINE).decodePath()[0])
+    fun fromPolylineLastPosition() = Location(EncodedPolyline(POLYLINE).decodePath().last())
 
     private const val POLYLINE = "mpjyHx`i@VjAVKnAh@BHHX@LZR@Bj@Ml@WWc@]w@bAyAfBmCb@o@pLeQfCsDVa@@ODQR}AJ{A?{BGu\\n\" +\n" +
         "            \"AD_@FKb@MTUX]Le@^kBVcAVo@Ta@|EaFh@m@FWaA{DCo@q@mCm@cC{A_GWeA}@sGSeAcA_EOSMa\\n\" +\n" +

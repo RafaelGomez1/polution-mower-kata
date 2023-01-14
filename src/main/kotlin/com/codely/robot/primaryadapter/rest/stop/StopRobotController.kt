@@ -1,9 +1,9 @@
-package com.codely.robot.primaryadapter.rest.start
+package com.codely.robot.primaryadapter.rest.stop
 
-import com.codely.robot.application.StartRobotCommand
-import com.codely.robot.application.start.handle
+import com.codely.robot.application.StopRobotCommand
+import com.codely.robot.application.stop.handle
 import com.codely.robot.domain.RobotRepository
-import com.codely.robot.domain.StartRobotError
+import com.codely.robot.domain.StopRobotError
 import com.codely.shared.event.bus.DomainEventPublisher
 import com.codely.shared.response.toServerResponse
 import kotlinx.coroutines.runBlocking
@@ -14,21 +14,21 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class StartRobotController(
+class StopRobotController(
     private val repository: RobotRepository,
     private val publisher: DomainEventPublisher
 ) {
 
-    @PatchMapping("/robots/start/{robotId}")
-    fun start(@PathVariable robotId: String): ResponseEntity<*> = runBlocking {
+    @PatchMapping("/robots/stop/{robotId}")
+    fun stop(@PathVariable robotId: String): ResponseEntity<*> = runBlocking {
         with(repository) {
             with(publisher) {
-                handle(StartRobotCommand(robotId))
+                handle(StopRobotCommand(robotId))
                     .toServerResponse { error ->
                         when (error) {
-                            is StartRobotError.RobotAlreadyStarted -> ResponseEntity.status(HttpStatus.CONFLICT).body("cause")
-                            is StartRobotError.RobotNotFound -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("cause")
-                            is StartRobotError.Unknown -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("cause: ${error.cause}")
+                            is StopRobotError.RobotAlreadyStopped -> ResponseEntity.status(HttpStatus.CONFLICT).body("cause")
+                            is StopRobotError.RobotNotFound -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("cause")
+                            is StopRobotError.Unknown -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("cause: ${error.cause}")
                         }
                     }
             }

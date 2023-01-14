@@ -1,8 +1,8 @@
-package com.codely.robot.primaryadapter.rest.create
+package com.codely.robot.primaryadapter.rest.route
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class CreateRobotDTO(
+data class RouteRobotDTO(
     @JsonProperty(value = "route")
     var route: String
 )

@@ -6,12 +6,17 @@ import com.google.maps.model.EncodedPolyline
 import com.google.maps.model.LatLng
 
 object RouteMother {
+    fun fromPolyline(polyline: String): Route {
+        return Route(decodePolyline(polyline))
+    }
 
     fun invoke(): Route {
         return Route(listOf(LocationMother.invoke().value))
     }
 
-    fun fromPolyline(): Route = Route(decodePolyline(POLYLINE))
+    fun fromPolyline(): Route {
+        return Route(decodePolyline(POLYLINE))
+    }
 
     private fun decodePolyline(polyline: String): List<LatLng> {
         val encodedPolyline = EncodedPolyline(polyline)

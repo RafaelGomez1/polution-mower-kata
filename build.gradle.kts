@@ -55,6 +55,9 @@ dependencies {
 
     // Axon
     implementation("org.axonframework:axon-messaging:4.6.3")
+    implementation("org.axonframework:axon-spring-boot-starter:4.6.3") {
+        exclude(group = "org.axonframework", module = "axon-server-connector")
+    }
 
     // Polyline
     implementation("com.google.maps:google-maps-services:2.1.2")
@@ -94,7 +97,6 @@ tasks.withType<Test> {
 spotless {
     kotlin {
         ktlint()
-
     }
     kotlinGradle {
         ktlint()

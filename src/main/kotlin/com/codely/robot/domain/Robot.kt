@@ -52,6 +52,6 @@ data class Robot(
         private const val NOTIFICATION_DISTANCE = 100.00
         fun create(id: RobotId, speed: Speed, location: Location?, route: Route?): Robot =
             Robot(id = id, speed = speed, location = location, route = route)
-                .also { it.record(RobotStartedEvent(id.value)) }
+//                .also { it.record(RobotStartedEvent(id.value)) }
     }
 }
