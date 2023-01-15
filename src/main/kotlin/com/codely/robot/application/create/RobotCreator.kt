@@ -9,10 +9,12 @@ import com.codely.robot.domain.Robot
 import com.codely.robot.domain.RobotRepository
 import com.codely.robot.domain.Route
 import com.codely.robot.domain.Speed
+import com.codely.shared.event.bus.DomainEventPublisher
+import com.codely.shared.event.bus.publishEventsOrElse
 import com.codely.shared.robot.domain.Location
 import com.codely.shared.robot.domain.RobotId
 
-context(RobotRepository)
+context(RobotRepository, DomainEventPublisher)
 suspend fun createRobot(id: RobotId, speed: Speed, location: Location?, route: Route?): Either<CreateRobotError, Robot> =
     guardRobotExists(
         id = id,
@@ -21,3 +23,4 @@ suspend fun createRobot(id: RobotId, speed: Speed, location: Location?, route: R
     )
         .map { Robot.create(id, speed, location, route) }
         .flatMap { robot -> robot.saveOrElse { CreateRobotError.Unknown(it) } }
+        .flatMap { robot -> robot.publishEventsOrElse { CreateRobotError.Unknown(it) } }

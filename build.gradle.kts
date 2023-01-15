@@ -69,6 +69,9 @@ dependencies {
     implementation("io.arrow-kt:arrow-fx-coroutines:1.1.2")
     implementation("io.arrow-kt:arrow-fx-stm:1.1.2")
 
+    // Quartz Scheduler
+    implementation("org.springframework.boot:spring-boot-starter-quartz")
+
     // Testing
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 

@@ -6,6 +6,7 @@ import com.codely.robot.mothers.CreateRobotDTOMother
 import com.codely.robot.mothers.RobotMother
 import com.codely.robot.primaryadapter.rest.create.CreateRobotController
 import com.codely.shared.configuration.robot.RobotConfiguration
+import com.codely.shared.event.robot.RobotCreatedEvent
 import com.codely.shared.response.REQUEST_PROCESSED_MESSAGE
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -16,7 +17,7 @@ import org.springframework.http.HttpStatus
 class CreateRobotTest : AbstractUnitTest() {
 
     private val configuration = RobotConfiguration(speed = 2.0, delayTimeUnit = 1)
-    private val controller: CreateRobotController = CreateRobotController(repository, configuration)
+    private val controller: CreateRobotController = CreateRobotController(repository, publisher, configuration)
 
     @Test
     fun `should create a robot and return 200`() = runTest {
@@ -25,6 +26,7 @@ class CreateRobotTest : AbstractUnitTest() {
 
         // Then
         response.`should be`(HttpStatus.OK, REQUEST_PROCESSED_MESSAGE)
+        `assert event was published`(expectedEvent)
     }
 
     @Test
@@ -37,9 +39,12 @@ class CreateRobotTest : AbstractUnitTest() {
 
         // Then
         response.`should be`(HttpStatus.CONFLICT, "cause")
+        `assert event was not published`(expectedEvent)
     }
 
     private val stoppedRobot = RobotMother.invoke(running = Running(false))
     private val startedRobot = stoppedRobot.copy(running = Running(true))
+
+    private val expectedEvent = RobotCreatedEvent(stoppedRobot.id.value)
     private val createRobotDTO = CreateRobotDTOMother.invoke()
 }
