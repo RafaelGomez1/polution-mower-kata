@@ -1,6 +1,6 @@
 package com.codely.robot.route
 
-import com.codely.robot.AbstractUnitTest
+import com.codely.robot.AbstractRobotUnitTest
 import com.codely.robot.domain.Route
 import com.codely.robot.mothers.RobotMother
 import com.codely.robot.mothers.RouteRobotDTOMother
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
 
 @ExperimentalCoroutinesApi
-class RouteRobotTest : AbstractUnitTest() {
+class RouteRobotTest : AbstractRobotUnitTest() {
 
     private val controller: RouteRobotController = RouteRobotController(repository)
 

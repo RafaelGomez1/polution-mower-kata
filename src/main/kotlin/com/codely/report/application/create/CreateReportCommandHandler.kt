@@ -13,7 +13,7 @@ import java.util.*
 context(ReportRepository)
 suspend fun handle(command: CreateReportCommand): Either<CreateReportError, Report> =
     createReport(
-        id = ReportId(UUID.randomUUID()),
-        robotId = RobotId(command.id),
+        id = ReportId(command.id),
+        robotId = RobotId(command.robotId),
         location = command.location?.let { Location(it) }
     )

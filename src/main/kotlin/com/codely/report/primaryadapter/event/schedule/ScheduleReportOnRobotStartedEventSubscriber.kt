@@ -9,9 +9,7 @@ import org.axonframework.eventhandling.EventHandler
 import org.springframework.stereotype.Component
 
 @Component
-class ScheduleReportOnRobotStartedEventSubscriber(
-    private val scheduler: ReportScheduler
-) {
+class ScheduleReportOnRobotStartedEventSubscriber(private val scheduler: ReportScheduler) {
 
     @EventHandler
     fun on(event: RobotStartedEvent) = runBlocking {

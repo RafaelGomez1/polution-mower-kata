@@ -1,6 +1,6 @@
 package com.codely.robot.stop
 
-import com.codely.robot.AbstractUnitTest
+import com.codely.robot.AbstractRobotUnitTest
 import com.codely.robot.domain.Running
 import com.codely.robot.mothers.RobotMother
 import com.codely.robot.primaryadapter.rest.stop.StopRobotController
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
 
 @ExperimentalCoroutinesApi
-class StopRobotTest : AbstractUnitTest() {
+class StopRobotTest : AbstractRobotUnitTest() {
 
     private val controller: StopRobotController = StopRobotController(repository, publisher)
 

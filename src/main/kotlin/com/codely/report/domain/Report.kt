@@ -22,6 +22,12 @@ data class Report(
             pollution: PollutionQuantity = PollutionQuantity(0)
         ) = Report(id, robotId, readings, location, pollution)
     }
+
+    fun addPollutionReading(reading: PollutionQuantity) =
+        copy(
+            pollution = pollution + reading,
+            readings = readings.inc()
+        )
 }
 
 typealias NumberOfReading = Int
@@ -30,4 +36,6 @@ typealias NumberOfReading = Int
 value class ReportId(val value: UUID)
 
 @JvmInline
-value class PollutionQuantity(val value: Int)
+value class PollutionQuantity(val value: Int) {
+    operator fun plus(pollution: PollutionQuantity) = PollutionQuantity(value + pollution.value)
+}

@@ -1,6 +1,6 @@
 package com.codely.robot.create
 
-import com.codely.robot.AbstractUnitTest
+import com.codely.robot.AbstractRobotUnitTest
 import com.codely.robot.domain.Running
 import com.codely.robot.mothers.CreateRobotDTOMother
 import com.codely.robot.mothers.RobotMother
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
 
 @ExperimentalCoroutinesApi
-class CreateRobotTest : AbstractUnitTest() {
+class CreateRobotTest : AbstractRobotUnitTest() {
 
     private val configuration = RobotConfiguration(speed = 2.0, delayTimeUnit = 1)
     private val controller: CreateRobotController = CreateRobotController(repository, publisher, configuration)
@@ -42,9 +42,9 @@ class CreateRobotTest : AbstractUnitTest() {
         `assert event was not published`(expectedEvent)
     }
 
-    private val stoppedRobot = RobotMother.invoke(running = Running(false))
+    private val stoppedRobot = RobotMother.withRealPolyline(running = Running(false))
     private val startedRobot = stoppedRobot.copy(running = Running(true))
 
-    private val expectedEvent = RobotCreatedEvent(stoppedRobot.id.value)
+    private val expectedEvent = RobotCreatedEvent(stoppedRobot.id.value, stoppedRobot.location?.value)
     private val createRobotDTO = CreateRobotDTOMother.invoke()
 }

@@ -11,7 +11,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-abstract class AbstractUnitTest {
+abstract class AbstractRobotUnitTest {
 
     val repository = FakeRobotRepository()
     val publisher = FakeDomainEventPublisher()
