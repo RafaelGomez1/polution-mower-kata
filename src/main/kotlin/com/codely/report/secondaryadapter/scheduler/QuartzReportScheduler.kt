@@ -17,7 +17,7 @@ import java.time.Instant
 import java.util.*
 
 @Component
-class QuartzScheduler(
+class QuartzReportScheduler(
     private val scheduler: Scheduler,
     private val configuration: ReportConfiguration
 ) : ReportScheduler {

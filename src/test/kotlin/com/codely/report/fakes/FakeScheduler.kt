@@ -13,7 +13,7 @@ class FakeScheduler : ReportScheduler {
 
     override suspend fun deleteScheduler(robotId: RobotId): Either<Throwable, Unit> = catch { scheduled = false }
 
-    infix fun FakeScheduler.shouldHaveActiveSchedule(result: Boolean) = assertEquals(result, scheduled)
+    infix fun shouldHaveActiveSchedule(result: Boolean) = assertEquals(result, scheduled)
 
     fun resetFake() { scheduled = false }
 }

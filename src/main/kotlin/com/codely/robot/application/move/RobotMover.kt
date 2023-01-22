@@ -10,7 +10,11 @@ import com.codely.robot.domain.MoveRobotError
 import com.codely.robot.domain.Robot
 import com.codely.robot.domain.RobotRepository
 import com.codely.shared.event.bus.DomainEventPublisher
+import com.codely.shared.event.bus.publishEventsOrElse
 import com.codely.shared.robot.domain.RobotId
+import mu.KotlinLogging
+
+private val logger = KotlinLogging.logger {}
 
 context(RobotRepository, DomainEventPublisher, DistanceCalculator)
 suspend fun moveRobot(id: RobotId): Either<MoveRobotError, Robot> =
@@ -21,7 +25,7 @@ suspend fun moveRobot(id: RobotId): Either<MoveRobotError, Robot> =
             onResourceNotFound = { MoveRobotError.RobotNotFound }
         ).bind()
 
-        // TODO -> Schedule Report Configuration
+        logger.info { "Robot starting route" }
 
         robot.route?.points?.forEach { coordinate ->
             robot = robot.moveToNextLocation(coordinate, distanceBetweenLocation(robot.location!!.value, coordinate))
@@ -29,7 +33,10 @@ suspend fun moveRobot(id: RobotId): Either<MoveRobotError, Robot> =
             publish(robot.pullDomainEvents())
         } ?: MoveRobotError.RouteNotAssignedToRobot.left().bind()
 
-        robot.saveOrElse { MoveRobotError.Unknown(it) }.bind()
+        logger.info { "Robot finished route" }
 
-        // TODO -> Delete Report Configuration
+        robot
+            .endTrip()
+            .saveOrElse { MoveRobotError.Unknown(it) }.bind()
+            .publishEventsOrElse { MoveRobotError.Unknown(it) }.bind()
     }

@@ -17,3 +17,8 @@ sealed class IncrementReportPollutionError {
     object ReportDoesNotExist : IncrementReportPollutionError()
     class Unknown(val cause: Throwable) : IncrementReportPollutionError()
 }
+
+sealed class GenerateReportError {
+    object ReportDoesNotExist : GenerateReportError()
+    class Unknown(val cause: Throwable) : GenerateReportError()
+}

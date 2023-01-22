@@ -9,7 +9,7 @@ import com.codely.robot.fakes.FakeRobotRepository
 import com.codely.robot.mothers.RobotMother
 import com.codely.robot.primaryadapter.event.move.MoveRobotOnRobotStartedSubscriber
 import com.codely.robot.secondaryadapter.distance.VincentyDistanceCalculator
-import com.codely.shared.event.robot.RobotMovedHundredMetersEvent
+import com.codely.shared.event.robot.RobotCompletedRouteEvent
 import com.codely.shared.event.robot.RobotStartedEvent
 import com.codely.shared.publisher.FakeDomainEventPublisher
 import com.codely.shared.robot.domain.Location
@@ -49,6 +49,7 @@ class MoveRobotTest {
 
         // Then
         assertEquals(expectedRobot.location, resultRobot.location)
+        assertTrue { publisher.eventsWerePublished() }
         assertTrue { publisher.eventWasPublished(expectedEvent) }
     }
 
@@ -62,6 +63,7 @@ class MoveRobotTest {
             .shouldBeLeft(MoveRobotError.RobotNotFound)
 
         // Then
+        assertFalse { publisher.eventsWerePublished() }
         assertFalse { publisher.eventWasPublished(expectedEvent) }
     }
 
@@ -75,6 +77,7 @@ class MoveRobotTest {
             .shouldBeLeft(MoveRobotError.RouteNotAssignedToRobot)
 
         // Then
+        assertFalse { publisher.eventsWerePublished() }
         assertFalse { publisher.eventWasPublished(expectedEvent) }
     }
 
@@ -88,5 +91,5 @@ class MoveRobotTest {
 
     private val expectedLocation = startedRobot.route?.points!!.last()
     private val expectedRobot = startedRobot.copy(location = Location(expectedLocation))
-    private val expectedEvent = RobotMovedHundredMetersEvent(startedRobot.id.value, startedRobot.location!!.value)
+    private val expectedEvent = RobotCompletedRouteEvent(expectedRobot.id.value)
 }

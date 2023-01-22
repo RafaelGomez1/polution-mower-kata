@@ -5,6 +5,7 @@ import arrow.core.left
 import arrow.core.right
 import arrow.optics.optics
 import com.codely.shared.aggregate.Aggregate
+import com.codely.shared.event.robot.RobotCompletedRouteEvent
 import com.codely.shared.event.robot.RobotCreatedEvent
 import com.codely.shared.event.robot.RobotMovedHundredMetersEvent
 import com.codely.shared.event.robot.RobotStartedEvent
@@ -48,6 +49,10 @@ data class Robot(
         } else {
             copy(location = Location(newLocation), distance = DistanceTravelled(distance.value + travelledDistance))
         }
+
+    fun endTrip() =
+        copy(running = Running(false))
+            .also { it.record(RobotCompletedRouteEvent(id.value)) }
 
     companion object {
         private const val NOTIFICATION_DISTANCE = 100.00

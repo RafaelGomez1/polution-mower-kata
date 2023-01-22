@@ -12,9 +12,6 @@ suspend fun <T> guardReportExists(id: RobotId, onResourceAlreadyExists: () -> T,
     existBy(id)
         .mapLeft { error -> onUnexpectedError(error) }
         .flatMap { exists ->
-            if (exists) {
-                onResourceAlreadyExists().left()
-            } else {
-                Unit.right()
-            }
+            if (exists) onResourceAlreadyExists().left()
+            else Unit.right()
         }
